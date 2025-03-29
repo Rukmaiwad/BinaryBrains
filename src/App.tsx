@@ -10,6 +10,7 @@ import { isInvalid } from './utils/utils';
 import Spinner from './components/Loader/Spinner';
 import NotFoundPage from './pages/Error/NotFound';
 import Navbar from './components/Navbar/Navbar';
+import LandingPage from './pages/Home/LandingPage';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
       <Router>
           <Navbar/>
           <Routes>
-            <Route path='/' element={<h1>Loading</h1>}/>
+            <Route path='/' element={<LandingPage/>}/>
               { 
                 Object.keys(USER_ALLOWED_ROUTES).map((page, index: number) => {
                   if(isInvalid(KEY_TO_PAGE_MAP[page])) return (
