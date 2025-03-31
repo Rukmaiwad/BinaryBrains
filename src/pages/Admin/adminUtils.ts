@@ -21,8 +21,8 @@ export interface AdminPagesType {
 // this array is for showing the menu items to 
 export const adminMenuOptions: AdminMenu []= [
     { option: 'Admin Pages', identifier: 'admin_pages', icon: ShieldUser},
-    { option: 'Pages Control', identifier: 'pages_control', icon: Notebook },
-    { option: 'Role Control', identifier: 'role_control', icon: User }
+    { option: 'Pages Management', identifier: 'pages_management', icon: Notebook },
+    { option: 'Role Management', identifier: 'role_management', icon: User }
 ]
 
 // Map shows identifier -> page property
