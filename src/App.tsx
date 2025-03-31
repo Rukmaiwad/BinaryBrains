@@ -44,6 +44,8 @@ function App() {
                     path={`${USER_ALLOWED_ROUTES[page].route}`} />
                 })
               }
+
+              <Route path='/*' element={<NotFoundPage/>} />
           </Routes>
       </Router>
         

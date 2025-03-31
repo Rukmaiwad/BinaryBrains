@@ -10,7 +10,7 @@ const Admin = () => {
 
   return (
     <div className='flex p-5 text-white' style={{ height: '92vh'}}>
-        <div className='options-container border border-gray-500 rounded-xl md:w-80 w-3/12 h-full flex flex-col gap-4 p-3'>
+        <div className='options-container border border-gray-500 rounded-xl md:w-80 w-3/12 h-full flex flex-col gap-4 p-3 overflow-auto'>
         {
           adminMenuOptions.map((menu, index: number) => {
             return <button 
