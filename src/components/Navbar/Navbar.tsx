@@ -12,20 +12,21 @@ export default function Navbar() {
       { title: "Home",  url: "/"},
       { title: "About Us", url: "/about-us" },
       { title: "Courses", url: "/courses" },
-      { title: 'Contact Us', url: '/contact-us' }
+      { title: 'Contact Us', url: '/contact-us' },
+      { title: "Admin", url: "/admin" }
   ]
 
   return (
     <nav className="navbar flex">
-        <div className="nav-image flex justify-end items-center " style={{ height: '100%', width: '120px'}}>
+        <div className="nav-image flex justify-end items-center" style={{ height: '100%', width: '120px'}}>
             <span className="text-pink-600 font-bold text-4xl">B</span>
             <span className="text-white text-lg">Brains</span>
         </div>
 
         <div className="nav-links w-full flex items-center justify-center">
-            <ul className="flex mt-3">
-            {navLinks.map((item) => (
-                <li className="mx-2">
+            <ul className="mt-3 hidden md:flex">
+            {navLinks.map((item, index: number) => (
+                <li className="mx-4 cursor-pointer" key={index}>
                     <Link
                       key={item.url}
                       to={item.url}

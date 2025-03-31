@@ -5,7 +5,7 @@ import notFound from '@/assets/not-found.png'
 
 export default function NotFoundPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white-100 text-center">
+    <div className="flex flex-col items-center min-h-screen text-center p-10">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
