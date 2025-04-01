@@ -10,6 +10,10 @@ import { isInvalid } from './utils/utils';
 import Spinner from './components/Loader/Spinner';
 import NotFoundPage from './pages/Error/NotFound';
 import Navbar from './components/Navbar/Navbar';
+import LandingPage from './pages/Home/LandingPage';
+
+// always import the react pages with React.lazy
+const Admin = React.lazy(() => import('@/pages/Admin/Admin'));
 
 function App() {
 
@@ -17,7 +21,8 @@ function App() {
       <Router>
           <Navbar/>
           <Routes>
-            <Route path='/' element={<h1>Loading</h1>}/>
+            <Route path='/' element={<LandingPage/>}/>
+            <Route path='/admin' element={<Admin/>} />
               { 
                 Object.keys(USER_ALLOWED_ROUTES).map((page, index: number) => {
                   if(isInvalid(KEY_TO_PAGE_MAP[page])) return (
@@ -39,6 +44,8 @@ function App() {
                     path={`${USER_ALLOWED_ROUTES[page].route}`} />
                 })
               }
+
+              <Route path='/*' element={<NotFoundPage/>} />
           </Routes>
       </Router>
         
