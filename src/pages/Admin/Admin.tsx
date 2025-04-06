@@ -16,7 +16,7 @@ const Admin = () => {
             return <button 
               key={index} 
               className='admin-menu-button w-full' 
-              style={{ background: selected === menu.identifier ? 'linear-gradient(45deg, rgba(251, 46, 152, 0.9), rgba(26, 148, 255, 0.9))' :'linear-gradient(45deg, rgba(251, 46, 152, 0.3), rgba(26, 148, 255, 0.3))' }}
+              style={{ background: selected === menu.identifier ? 'linear-gradient(45deg, rgba(251, 46, 152, 0.9), rgba(0, 62, 117, 0.9))' :'linear-gradient(45deg, rgba(251, 46, 152, 0.3), rgba(26, 148, 255, 0.3))' }}
               onClick={() => setSelected(menu.identifier)}
               >
                 <div className='flex gap-5 overflow-auto'>
