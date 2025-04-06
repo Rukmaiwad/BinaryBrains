@@ -4,6 +4,7 @@
 }
 body {
     background-color: black;
+    color: white;
 }
 .navbar {
     position: relative;
@@ -35,7 +36,8 @@ body {
     background: linear-gradient(45deg, rgb(251, 46, 152), rgb(26, 148, 255), black);
     border-radius: inherit;
     background-size: 300% 300%; /* Key fix: Enlarging background for animation */
-    filter: blur(15px); /* Increase blur for glowing effect */
+    background-position: 0% 100%;
+    filter: blur(7px); /* Increase blur for glowing effect */
     z-index: -1; /* Keep it behind the content */
     animation: glowing 10s linear infinite;
 }
@@ -47,12 +49,12 @@ body {
 
 @keyframes glowing {
     0% {
-        background-position: 0% 0%;
+        background-position: 0% 100%;
     }
     50% {
-        background-position: 400% 0%;
+        background-position: 100% 0%;
     }
     100% {
-        background-position: 0% 0%;
+        background-position: 0% 100%;
     }
 }
