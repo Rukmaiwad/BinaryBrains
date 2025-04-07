@@ -15,10 +15,9 @@ const LandingPage = () => {
                   showToast({
                     title: "Hello world",
                     description: "Exploring the courses with notification",
-                    color: 'lime',
-                    duration: 1000
+                    duration: 1500
                   })
-                }} className='w-5/12' variant={'outline'}>Explore Courses</Button>
+                }} className='w-5/12 text-black' variant={'outline'}>Explore Courses</Button>
             </div>
 
             <div className='right-content-section flex justify-end  w-full m-0'>
