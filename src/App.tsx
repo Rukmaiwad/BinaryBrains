@@ -11,7 +11,9 @@ import Spinner from './components/Loader/Spinner';
 import NotFoundPage from './pages/Error/NotFound';
 import Navbar from './components/Navbar/Navbar';
 import LandingPage from './pages/Home/LandingPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 import { Toaster } from './components/ui/toaster';
+import SignUp from './pages/LoginPage/SignUp';
 
 // always import the react pages with React.lazy
 const Admin = React.lazy(() => import('@/pages/Admin/Admin'));
@@ -19,12 +21,15 @@ const Admin = React.lazy(() => import('@/pages/Admin/Admin'));
 function App() {
 
   return (
+    <>
       <Router>
           <Toaster/>
           <Navbar/>
           <Routes>
             <Route path='/' element={<LandingPage/>}/>
             <Route path='/admin' element={<Admin/>} />
+            <Route path='/login' element={<LoginPage/>}/>
+            <Route path='/signup' element={<SignUp/>} />
               { 
                 Object.keys(USER_ALLOWED_ROUTES).map((page, index: number) => {
                   if(isInvalid(KEY_TO_PAGE_MAP[page])) return (
@@ -50,7 +55,7 @@ function App() {
               <Route path='/*' element={<NotFoundPage/>} />
           </Routes>
       </Router>
-        
+    </>
   )
 }
 
