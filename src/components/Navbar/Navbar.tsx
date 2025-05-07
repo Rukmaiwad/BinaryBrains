@@ -2,19 +2,47 @@ import { Link } from "react-router-dom";
 import { ReactNode, useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Settings, User } from "lucide-react";
+import { LogOutIcon, Settings, User } from "lucide-react";
+import { getRole, getToken, removeUser } from "@/redux/slices/User";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { showToast } from "@/utils/toast";
+import { isInvalid } from "@/utils/utils";
+import { LOGOUT_ROUTE } from "@/utils/Urlpaths";
+import axios from "axios";
 
 export default function Navbar() {
 
-  const [active, setActive] = useState(window.location.pathname)
+  const [active, setActive] = useState('/')
+  const dispatch = useAppDispatch();
+  const role = useAppSelector(getRole)
+  const token = useAppSelector(getToken)
 
   const navLinks: { title: string, url: string}[] = [
       { title: "Home",  url: "/"},
       { title: "About Us", url: "/about-us" },
       { title: "Courses", url: "/courses" },
       { title: 'Contact Us', url: '/contact-us' },
-      { title: "Admin", url: "/admin" }
   ]
+
+  const handleLogout = async () => {
+
+    const response = await axios.post(LOGOUT_ROUTE, {});
+
+    if(response.status === 200) {
+      showToast({
+        title: "Success",
+        description: "Logged Out!",
+        color: 'green',
+      })
+      dispatch(removeUser())
+    } else {
+      showToast({
+        title: "Error", 
+        description: response.data.messsage ?? "Error while logging out user!",
+        color: 'red'
+      })
+    }
+  }
 
   return (
     <nav className="navbar flex">
@@ -39,10 +67,25 @@ export default function Navbar() {
                     </Link>
                 </li>
               ))}
+              <li>
+                {
+                  role === 'admin' ?
+                  <Link
+                      to={'/admin'}
+                      className={`${
+                        active === '/admin' ? "underline decoration-red-500 underline-offset-4 text-white" : "text-gray-400 no-underline"
+                      }`}
+                      onClick={() => setActive('/admin')}
+                    >
+                        {'Admin'}
+                    </Link> : 
+                  null
+                }
+              </li>
             </ul>
         </div>
         <div className="nav-profile flex justify-center items-center" style={{ height: '100%', width: '100px'}}>
-            <DropdownMenu>
+            {!isInvalid(token) ? <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Avatar className="cursor-pointer">
                       <AvatarImage src="https://github.com/shadcn.png" className="rounded-3xl" alt="User Avatar" height={45} width={45} />
@@ -54,8 +97,14 @@ export default function Navbar() {
                       <Link to={'/profile'}>Profile</Link>
                     } icon={<User/>} separator/>
                     <MenuItem children="Settings" icon={<Settings/>}/>
+                    {!isInvalid(token) && <MenuItem 
+                      children={
+                        <button className="w-full flex" onClick={handleLogout}>Logout</button>
+                      }
+                      icon={<LogOutIcon/>}
+                    />}
                 </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> : <div className="flex items-end text-gray-300"><Link to={'/login'}>Login</Link></div>}
         </div>
     </nav>
   );
