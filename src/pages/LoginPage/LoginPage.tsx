@@ -1,16 +1,18 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { GOOGLE_LOGIN_ROUTE, MAIL_LOGIN_ROUTE } from '@/utils/Urlpaths'
 import { useDispatch } from 'react-redux'
-import { setUser } from '@/redux/slices/User'
+import { getIsLoggedIn, setUser } from '@/redux/slices/User'
 import { showToast } from '@/utils/toast'
 import { Input } from '@/components/ui/input'
 import { EyeClosed, Eye, Lock, Mail } from 'lucide-react'
 import { useState } from 'react'
+import { useAppSelector } from '@/redux/hooks'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
+  const isLoggedIn = useAppSelector(getIsLoggedIn);
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -33,7 +35,7 @@ const LoginPage = () => {
       const response = await axios.post(GOOGLE_LOGIN_ROUTE, { token })
 
       if (response.status === 200 || response.status === 201) {
-        handleLoginSuccess(response.data)
+        handleLoginSuccess(response.data?.data)
       }
     } catch (error: any) {
       console.error('Google login error:', error)
@@ -76,7 +78,7 @@ const LoginPage = () => {
       const response = await axios.post(MAIL_LOGIN_ROUTE, { email, password })
 
       if (response.status === 200 || response.status === 201) {
-        handleLoginSuccess(response.data)
+        handleLoginSuccess(response.data?.data)
       } else if (response.status === 403) {
         showToast({
           title: "INCORRECT PASSWORD",
@@ -104,14 +106,17 @@ const LoginPage = () => {
   }
 
   const handleLoginSuccess = (data: any) => {
+
     dispatch(
       setUser({
         firstName: data.firstName,
         lastName: data.lastName,
         avatar: data.avatar,
-        role: data.role,
         userName: data.userName,
         newComer: data.newComer,
+        token: data.token,
+        refreshToken: data.refreshToken,
+        isLoggedIn: true
       })
     )
     showToast({
@@ -134,6 +139,10 @@ const LoginPage = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
+  }
+
+  if(isLoggedIn) {
+    return <Navigate to={'/'} />
   }
 
   return (

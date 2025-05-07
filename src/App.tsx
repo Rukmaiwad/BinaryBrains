@@ -14,6 +14,8 @@ import LandingPage from './pages/Home/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { Toaster } from './components/ui/toaster';
 import SignUp from './pages/LoginPage/SignUp';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import AdminRoute from './components/AdminRoute/AdminRoute';
 
 // always import the react pages with React.lazy
 const Admin = React.lazy(() => import('@/pages/Admin/Admin'));
@@ -27,9 +29,20 @@ function App() {
           <Navbar/>
           <Routes>
             <Route path='/' element={<LandingPage/>}/>
-            <Route path='/admin' element={<Admin/>} />
+            
+            {/* admin routes starting */}
+
+            <Route element={<AdminRoute/>}>
+                <Route path='/admin' element={<Admin/>} />
+            </Route>
+
+            {/* admin routes ending */}
+
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<SignUp/>} />
+
+            {/* private routes starting */}
+            <Route element={<PrivateRoute/>}>
               { 
                 Object.keys(USER_ALLOWED_ROUTES).map((page, index: number) => {
                   if(isInvalid(KEY_TO_PAGE_MAP[page])) return (
@@ -51,8 +64,10 @@ function App() {
                     path={`${USER_ALLOWED_ROUTES[page].route}`} />
                 })
               }
+            </Route>
+            {/* private routes ending */}
 
-              <Route path='/*' element={<NotFoundPage/>} />
+            <Route path='/*' element={<NotFoundPage/>} />
           </Routes>
       </Router>
     </>

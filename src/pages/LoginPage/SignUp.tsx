@@ -5,9 +5,12 @@ import { Eye, EyeOff } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import { SIGNUP_ROUTE } from "@/utils/Urlpaths";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getIsLoggedIn, setUser } from "@/redux/slices/User";
 
 const SignUp = () => {
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -18,6 +21,8 @@ const SignUp = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useAppDispatch();
+    const isLoggedIn = useAppSelector(getIsLoggedIn);
     const navigate = useNavigate()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +61,22 @@ const SignUp = () => {
                     description: "Account created successfully.",
                     color: "green"
                 });
+
+               const data = await response.data;
+               const userData = data.data;
+                
+               dispatch(
+                    setUser({
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    avatar: userData.avatar,
+                    userName: userData.userName,
+                    newComer: userData.newComer,
+                    token: userData.token,
+                    refreshToken: userData.refreshToken,
+                    isLoggedIn: true
+                    })
+                )
                 navigate('/')
             }
 
@@ -72,6 +93,10 @@ const SignUp = () => {
             setIsLoading(false);
         }
     };
+
+    if(isLoggedIn) {
+        return <Navigate to={'/'} />
+    }
 
     return (
         <div className="py-20 flex items-center justify-center">
