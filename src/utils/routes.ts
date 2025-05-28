@@ -1,5 +1,6 @@
 import { JSX, lazy } from "react"
 const MCQs = lazy(() => import("@/pages/MCQs/MCQs"));
+const Articles = lazy(() => import('@/pages/Article/CreateArticle'));
 
 export enum PERMISSIONS {
     READ   =  "read",
@@ -14,12 +15,18 @@ export const USER_ALLOWED_ROUTES: Record<string, { route: string; permissions: s
         permissions: ['read']
     },
     "MCQS": {
-        route: "/mcqs",
+        route: "admin/mcqs",
         permissions: ["read", "create"]
+    },
+    "ARTICLES": {
+        route: '/admin/article',
+        permissions: ['read', 'create']
     }
+
 } as const
 
 
-export const KEY_TO_PAGE_MAP: Record<string, React.LazyExoticComponent<() => JSX.Element>> = {
-    MCQS: MCQs
+export const KEY_TO_PAGE_MAP: Record<string, React.LazyExoticComponent<({ permissions } : { permissions: any }) => JSX.Element>> = {
+    MCQS: MCQs,
+    ARTICLES: Articles
 }
