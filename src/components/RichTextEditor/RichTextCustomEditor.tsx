@@ -28,6 +28,7 @@ import { ExportPdf } from 'reactjs-tiptap-editor/exportpdf';
 import { Mermaid } from 'reactjs-tiptap-editor/mermaid'; 
 
 import 'react-image-crop/dist/ReactCrop.css'; 
+import { Button } from '../ui/button';
 
 const RichTextCustomEditor = ({ content, setContent }: { content: string, setContent: any }) => {
 
@@ -92,6 +93,9 @@ const RichTextCustomEditor = ({ content, setContent }: { content: string, setCon
   return (
     <Suspense fallback={<div>Loading editor...</div>}>
     <div className='dark p-2'>
+      <div className='w-full flex justify-end'>
+        <Button variant={'outline'} className='my-3 p-3' style={{ height: '10px', borderColor: 'gray'}}>Preview</Button>
+      </div>
         <RichTextEditor
           output='html'
           content={content}
