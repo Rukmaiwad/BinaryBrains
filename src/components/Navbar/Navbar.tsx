@@ -22,8 +22,8 @@ export default function Navbar() {
 
   const navLinks: { title: string, url: string}[] = [
       { title: "Home",  url: "/"},
-      { title: "About Us", url: "/about-us" },
       { title: "Courses", url: "/courses" },
+      { title: 'PlayGround', url: '/playground' },
       { title: 'Contact Us', url: '/contact-us' },
   ]
 
