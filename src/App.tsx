@@ -16,6 +16,7 @@ import { Toaster } from './components/ui/toaster';
 import SignUp from './pages/LoginPage/SignUp';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AdminRoute from './components/AdminRoute/AdminRoute';
+import PlayGround from './pages/PlayGround/PlayGround';
 
 // always import the react pages with React.lazy
 const Admin = React.lazy(() => import('@/pages/Admin/Admin'));
@@ -28,20 +29,21 @@ function App() {
           <Toaster/>
           <Navbar/>
           <Routes>
+{/* --------------------------- public routes -----------------------------------  */}
+
+            <Route path='/login' element={<LoginPage/>}/>
+            <Route path='/signup' element={<SignUp/>} />
             <Route path='/' element={<LandingPage/>}/>
+            <Route path='/playground' element={<PlayGround />} />
             
-            {/* admin routes starting */}
+{/* --------------------------- admin routes -----------------------------------  */}
 
             <Route element={<AdminRoute/>}>
                 <Route path='/admin' element={<Admin/>} />
             </Route>
 
-            {/* admin routes ending */}
+{/* --------------------------- private routes ------------------------------------ */}
 
-            <Route path='/login' element={<LoginPage/>}/>
-            <Route path='/signup' element={<SignUp/>} />
-
-            {/* private routes starting */}
             <Route element={<PrivateRoute/>}>
               { 
                 Object.keys(USER_ALLOWED_ROUTES).map((page, index: number) => {
@@ -65,7 +67,6 @@ function App() {
                 })
               }
             </Route>
-            {/* private routes ending */}
 
             <Route path='/*' element={<NotFoundPage/>} />
           </Routes>
