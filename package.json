@@ -4,7 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "node tinymceconfig.js && vite",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
@@ -33,6 +33,7 @@
         "@radix-ui/react-tooltip": "^1.1.8",
         "@react-oauth/google": "^0.12.1",
         "@reduxjs/toolkit": "^2.6.1",
+        "@tinymce/tinymce-react": "^6.3.0",
         "@uiw/codemirror-theme-github": "^4.25.3",
         "@uiw/codemirror-theme-monokai": "^4.25.3",
         "@uiw/codemirror-theme-vscode": "^4.25.3",
@@ -43,6 +44,7 @@
         "clsx": "^2.1.1",
         "flexlayout-react": "^0.8.17",
         "framer-motion": "^12.5.0",
+        "fs-extra": "^11.3.2",
         "jotai": "^2.15.1",
         "jwt-decode": "^4.0.0",
         "lucide-react": "^0.482.0",
@@ -51,10 +53,10 @@
         "react-dom": "^19.0.0",
         "react-redux": "^9.2.0",
         "react-router-dom": "^7.3.0",
-        "reactjs-tiptap-editor": "^0.3.2",
         "redux-persist": "^6.0.0",
         "tailwind-merge": "^3.0.2",
-        "tailwindcss-animate": "^1.0.7"
+        "tailwindcss-animate": "^1.0.7",
+        "tinymce": "^8.2.1"
     },
     "devDependencies": {
         "@eslint/js": "^9.21.0",
