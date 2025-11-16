@@ -1,4 +1,4 @@
-import RichTextCustomEditor from "@/components/RichTextEditor/RichTextCustomEditor"
+import CustomTextEditor from "@/components/RichTextEditor/CustomTextEditor"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { isInvalid } from "@/utils/utils"
@@ -7,7 +7,7 @@ import { useState } from "react"
 const CreateArticle = () => {
 
     const [title, setTitle] = useState<string>('')
-    const [content, setContent] = useState<string>('')
+    const [content, setContent] = useState<string>('');
 
     return (
         <div className='flex flex-col border w-full items-center dark'>
@@ -22,7 +22,10 @@ const CreateArticle = () => {
             />
             <Textarea placeholder="Enter description of article." className="w-11/12" style={{ height: '200px'}}/>
             <div className="w-11/12 my-3 h-1/2 rounded-xl overflow-auto">
-                <RichTextCustomEditor content={content} setContent={setContent} />
+                <CustomTextEditor
+                    onEditorChange={(e) => setContent(e)}
+                    value={content}
+                />
             </div>
         </div>
     )
